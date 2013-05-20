@@ -1,0 +1,13 @@
+C:\Users\Rubén\Documents\Visual Studio 2010\Projects\Enrollment_capture\Enrollment_capture\bin\Debug\Enrollment_capture.exe
+C:\Users\Rubén\Documents\Visual Studio 2010\Projects\Enrollment_capture\Enrollment_capture\bin\Debug\Enrollment_capture.pdb
+C:\Users\Rubén\Documents\Visual Studio 2010\Projects\Enrollment_capture\Enrollment_capture\bin\Debug\Enrollment_capture.xml
+C:\Users\Rubén\Documents\Visual Studio 2010\Projects\Enrollment_capture\Enrollment_capture\obj\x86\Debug\Enrollment_capture.vbprojResolveAssemblyReference.cache
+C:\Users\Rubén\Documents\Visual Studio 2010\Projects\Enrollment_capture\Enrollment_capture\obj\x86\Debug\Enrollment_capture.Resources.resources
+C:\Users\Rubén\Documents\Visual Studio 2010\Projects\Enrollment_capture\Enrollment_capture\obj\x86\Debug\Enrollment_capture.vbproj.GenerateResource.Cache
+C:\Users\Rubén\Documents\Visual Studio 2010\Projects\Enrollment_capture\Enrollment_capture\obj\x86\Debug\Enrollment_capture.exe
+C:\Users\Rubén\Documents\Visual Studio 2010\Projects\Enrollment_capture\Enrollment_capture\obj\x86\Debug\Enrollment_capture.xml
+C:\Users\Rubén\Documents\Visual Studio 2010\Projects\Enrollment_capture\Enrollment_capture\obj\x86\Debug\Enrollment_capture.pdb
+C:\Users\Rubén\Documents\Visual Studio 2010\Projects\Enrollment_capture\Enrollment_capture\bin\Debug\Enrollment_capture.exe.manifest
+C:\Users\Rubén\Documents\Visual Studio 2010\Projects\Enrollment_capture\Enrollment_capture\bin\Debug\Enrollment_capture.application
+C:\Users\Rubén\Documents\Visual Studio 2010\Projects\Enrollment_capture\Enrollment_capture\obj\x86\Debug\Enrollment_capture.exe.manifest
+C:\Users\Rubén\Documents\Visual Studio 2010\Projects\Enrollment_capture\Enrollment_capture\obj\x86\Debug\Enrollment_capture.application
