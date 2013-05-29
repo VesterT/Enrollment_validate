@@ -1,4 +1,5 @@
-﻿Imports DPUruNet
+﻿Imports DPUruNet.Fingerbase
+Imports DPUruNet
 Imports System.Threading
 Imports System.Collections.Generic
 Imports DPUruNet.Constants
@@ -9,6 +10,7 @@ Module Module1
     Private count As Integer
     Dim reader As Reader
     Dim fp As String
+    Dim preenrollmentFmds As New List(Of Fmd)
 
     Public Property Fmds() As Dictionary(Of Int16, Fmd)
         Get
@@ -123,7 +125,12 @@ Module Module1
         reader = _readers(0)
         count = 0
         OpenReader()
+        'While (count < 4)
         StartCaptureAsync(AddressOf OnCaptured)
+        'Console.WriteLine("")
+        'Console.ReadLine()
+        'End While
+       
         Console.WriteLine("")
         Console.ReadLine()
     End Sub
@@ -139,37 +146,43 @@ Module Module1
             Console.WriteLine("no funciona")
             'Console.ReadLine()
         Else
-            fp = Fmd.SerializeXml(resultConversion.Data)
-            Console.WriteLine("OK")
-            Dim path As String = "c:\temp\cap.txt"
-            File.WriteAllText(path, fp)
+            'fp = Fmd.SerializeXml(resultConversion.Data)
+            preenrollmentFmds.Add(resultConversion.Data)
+            Console.WriteLine("OK " + count.ToString)
+            'Dim path As String = "c:\temp\cap.txt"
+            'File.WriteAllText(path, fp)
             'Console.ReadLine()
+
         End If
 
-        Environment.Exit(0)
+        ' Environment.Exit(0)
 
 
         '    preenrollmentFmds.Add(resultConversion.Data)
 
         '    SendMessage(Action.SendMessage, "A finger was captured.  " & vbCrLf & "Count:  " & (count.ToString()))
 
-        '    If count >= 4 Then
-        '        Dim resultEnrollment As DataResult(Of Fmd) = DPUruNet.Enrollment.CreateEnrollmentFmd(Formats.Fmd.ANSI, preenrollmentFmds)
+        If count >= 4 Then
+            Dim resultEnrollment As DataResult(Of Fmd) = DPUruNet.Enrollment.CreateEnrollmentFmd(Formats.Fmd.DP_REGISTRATION, preenrollmentFmds)
+            fp = Fmd.SerializeXml(resultEnrollment.Data)
+            File.WriteAllText("c:\temp\cap_fmd_enrolled.txt", fp)
+            Console.WriteLine("Done")
+            '        Dim resultEnrollment As DataResult(Of Fmd) = DPUruNet.Enrollment.CreateEnrollmentFmd(Formats.Fmd.ANSI, preenrollmentFmds)
 
-        '        If resultEnrollment.ResultCode = ResultCode.DP_SUCCESS Then
-        '            SendMessage(Action.SendMessage, "An enrollment FMD was successfully created.")
-        '            SendMessage(Action.SendMessage, "Place a finger on the reader.")
-        '            count = 0
-        '            preenrollmentFmds.Clear()
-        '            Return
-        '        ElseIf (resultEnrollment.ResultCode = Constants.ResultCode.DP_ENROLLMENT_INVALID_SET) Then
-        '            SendMessage(Action.SendMessage, "Enrollment was unsuccessful.  Please try again.")
-        '            SendMessage(Action.SendMessage, "Place a finger on the reader.")
-        '            count = 0
-        '            preenrollmentFmds.Clear()
-        '            Return
-        '        End If
-        '    End If
+            '        If resultEnrollment.ResultCode = ResultCode.DP_SUCCESS Then
+            '            SendMessage(Action.SendMessage, "An enrollment FMD was successfully created.")
+            '            SendMessage(Action.SendMessage, "Place a finger on the reader.")
+            '            count = 0
+            '            preenrollmentFmds.Clear()
+            '            Return
+            '        ElseIf (resultEnrollment.ResultCode = Constants.ResultCode.DP_ENROLLMENT_INVALID_SET) Then
+            '            SendMessage(Action.SendMessage, "Enrollment was unsuccessful.  Please try again.")
+            '            SendMessage(Action.SendMessage, "Place a finger on the reader.")
+            '            count = 0
+            '            preenrollmentFmds.Clear()
+            '            Return
+            '        End If
+        End If
 
         '    SendMessage(Action.SendMessage, "Now place the same finger on the reader.")
         'Catch ex As Exception

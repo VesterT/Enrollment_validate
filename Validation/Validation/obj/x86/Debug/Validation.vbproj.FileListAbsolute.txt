@@ -1,0 +1,12 @@
+C:\Users\Rubén\Documents\Visual Studio 2010\Projects\Validation\Validation\bin\Debug\Validation.exe
+C:\Users\Rubén\Documents\Visual Studio 2010\Projects\Validation\Validation\bin\Debug\Validation.pdb
+C:\Users\Rubén\Documents\Visual Studio 2010\Projects\Validation\Validation\bin\Debug\Validation.xml
+C:\Users\Rubén\Documents\Visual Studio 2010\Projects\Validation\Validation\obj\x86\Debug\Validation.vbprojResolveAssemblyReference.cache
+C:\Users\Rubén\Documents\Visual Studio 2010\Projects\Validation\Validation\obj\x86\Debug\Validation.Resources.resources
+C:\Users\Rubén\Documents\Visual Studio 2010\Projects\Validation\Validation\obj\x86\Debug\Validation.vbproj.GenerateResource.Cache
+C:\Users\Rubén\Documents\Visual Studio 2010\Projects\Validation\Validation\obj\x86\Debug\Validation.exe
+C:\Users\Rubén\Documents\Visual Studio 2010\Projects\Validation\Validation\obj\x86\Debug\Validation.xml
+C:\Users\Rubén\Documents\Visual Studio 2010\Projects\Validation\Validation\obj\x86\Debug\Validation.pdb
+D:\Validation\Validation\obj\x86\Debug\Validation.exe
+D:\Validation\Validation\obj\x86\Debug\Validation.xml
+D:\Validation\Validation\obj\x86\Debug\Validation.pdb

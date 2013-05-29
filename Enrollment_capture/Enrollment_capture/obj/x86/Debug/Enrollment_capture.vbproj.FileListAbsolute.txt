@@ -11,3 +11,16 @@ C:\Users\Rubén\Documents\Visual Studio 2010\Projects\Enrollment_capture\Enrollm
 C:\Users\Rubén\Documents\Visual Studio 2010\Projects\Enrollment_capture\Enrollment_capture\bin\Debug\Enrollment_capture.application
 C:\Users\Rubén\Documents\Visual Studio 2010\Projects\Enrollment_capture\Enrollment_capture\obj\x86\Debug\Enrollment_capture.exe.manifest
 C:\Users\Rubén\Documents\Visual Studio 2010\Projects\Enrollment_capture\Enrollment_capture\obj\x86\Debug\Enrollment_capture.application
+D:\Enrollment_capture\Enrollment_capture\obj\x86\Debug\Enrollment_capture.exe
+D:\Enrollment_capture\Enrollment_capture\obj\x86\Debug\Enrollment_capture.xml
+D:\Enrollment_capture\Enrollment_capture\obj\x86\Debug\Enrollment_capture.pdb
+D:\Enrollment_capture\Enrollment_capture\bin\Debug\Enrollment_capture.exe.manifest
+D:\Enrollment_capture\Enrollment_capture\bin\Debug\Enrollment_capture.application
+D:\Enrollment_capture\Enrollment_capture\bin\Debug\Enrollment_capture.exe
+D:\Enrollment_capture\Enrollment_capture\bin\Debug\Enrollment_capture.pdb
+D:\Enrollment_capture\Enrollment_capture\bin\Debug\Enrollment_capture.xml
+D:\Enrollment_capture\Enrollment_capture\obj\x86\Debug\Enrollment_capture.vbprojResolveAssemblyReference.cache
+D:\Enrollment_capture\Enrollment_capture\obj\x86\Debug\Enrollment_capture.Resources.resources
+D:\Enrollment_capture\Enrollment_capture\obj\x86\Debug\Enrollment_capture.vbproj.GenerateResource.Cache
+D:\Enrollment_capture\Enrollment_capture\obj\x86\Debug\Enrollment_capture.exe.manifest
+D:\Enrollment_capture\Enrollment_capture\obj\x86\Debug\Enrollment_capture.application
