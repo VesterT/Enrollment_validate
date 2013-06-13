@@ -13,7 +13,7 @@ Module Module1
     Dim fp As String
     Dim Fmds_ver As New List(Of Fmd)
 
-
+    'Metodo que almacena la coleccion de huellas
     Public Property Fmds() As Dictionary(Of Int16, Fmd)
         Get
             Return _fmds
@@ -23,7 +23,7 @@ Module Module1
         End Set
     End Property
     Private _fmds As Dictionary(Of Int16, Fmd) = New Dictionary(Of Int16, Fmd)
-
+    'Metodo que reinicia el lector de huella
     Public Property Reset() As Boolean
         Get
             Return _reset
@@ -33,7 +33,7 @@ Module Module1
         End Set
     End Property
     Private _reset As Boolean
-
+    'Metodo que abre determinado lector de huella
     Public Function OpenReader() As Boolean
         Reset = False
         Dim result As Constants.ResultCode = Constants.ResultCode.DP_DEVICE_FAILURE
@@ -48,7 +48,7 @@ Module Module1
 
         Return True
     End Function
-
+    'Metodo que regresa el status del lector de huella
     Public Sub GetStatus()
         Dim result = reader.GetStatus()
 
@@ -67,7 +67,7 @@ Module Module1
             Throw New Exception("Reader Status - " & reader.Status.Status.ToString())
         End If
     End Sub
-
+    'Metodo que captura la huella asincronamente
     Public Function CaptureFingerAsync() As Boolean
         Try
             GetStatus()
@@ -86,7 +86,7 @@ Module Module1
             Return False
         End Try
     End Function
-
+    'metodo que inicia la captura asincrona
     Public Function StartCaptureAsync(ByVal OnCaptured As Reader.CaptureCallback) As Boolean
         AddHandler reader.On_Captured, OnCaptured
 
@@ -99,7 +99,7 @@ Module Module1
 
     Public Sub CancelCaptureAndCloseReader(ByVal OnCaptured As Reader.CaptureCallback)
         If reader IsNot Nothing Then
-            ' Dispose of reader handle and unhook reader events.
+            'Metodo para cerrar el lector de huellas
 
             If (Reset) Then
                 reader = Nothing
@@ -120,28 +120,18 @@ Module Module1
         Console.WriteLine("")
         Console.ReadLine()
     End Sub
-
+    'Metodo que se ejcuta en cuanto se captura una huella
     Private Sub OnCaptured(ByVal captureResult As CaptureResult)
-
+        'Genero el objecto con la huella en base a la huella capturada
         Dim resultConversion As DataResult(Of Fmd) = FeatureExtraction.CreateFmdFromFid(captureResult.Data, Formats.Fmd.DP_VERIFICATION)
 
-        'If resultConversion.ResultCode <> ResultCode.DP_SUCCESS Then
-        '    'MessageBox.Show("Could not create Fmd.  Try again.")
-        '    Return
-        'End If
+        'Genero un objeto para la clase de comnparacion de huellas
         Dim compareResult As DPUruNet.CompareResult
 
-        'For Each fp_a As String In sarray
+        'Comparo la huella capturada con la huella guardada en la ruta especificada, de-serializandola previamente
         compareResult = Comparison.Compare(resultConversion.Data, 0, Fmd.DeserializeXml(File.ReadAllText("c:\temp\cap_fmd_enrolled.txt")), 0)
+        'Salida indicando si el usuario es valido o no
         Console.WriteLine(IIf(compareResult.Score < (&H7FFFFFFF / 100000), "Usuario Valido", "Usuario Invalido"))
-
-
-
-        'If compareResult.ResultCode <> Constants.ResultCode.DP_SUCCESS Then
-
-        'End If
-
-        ' Console.WriteLine("Comparison resulted in a dissimilarity score of " & compareResult.Score.ToString() & IIf(compareResult.Score < (&H7FFFFFFF / 100000), " (fingerprints matched)", " (fingerprints did not match)")
     End Sub
 
 End Module

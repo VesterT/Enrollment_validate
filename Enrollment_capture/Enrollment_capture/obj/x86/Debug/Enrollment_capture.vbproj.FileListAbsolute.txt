@@ -24,3 +24,6 @@ D:\Enrollment_capture\Enrollment_capture\obj\x86\Debug\Enrollment_capture.Resour
 D:\Enrollment_capture\Enrollment_capture\obj\x86\Debug\Enrollment_capture.vbproj.GenerateResource.Cache
 D:\Enrollment_capture\Enrollment_capture\obj\x86\Debug\Enrollment_capture.exe.manifest
 D:\Enrollment_capture\Enrollment_capture\obj\x86\Debug\Enrollment_capture.application
+C:\Users\Administrator\Documents\GitHub\Enrollment_validate\Enrollment_capture\Enrollment_capture\obj\x86\Debug\Enrollment_capture.exe
+C:\Users\Administrator\Documents\GitHub\Enrollment_validate\Enrollment_capture\Enrollment_capture\obj\x86\Debug\Enrollment_capture.xml
+C:\Users\Administrator\Documents\GitHub\Enrollment_validate\Enrollment_capture\Enrollment_capture\obj\x86\Debug\Enrollment_capture.pdb

@@ -6,12 +6,14 @@ Imports DPUruNet.Constants
 Imports System.IO
 
 Module Module1
+    'Declaración de variables globales
     Private _readers As ReaderCollection
     Private count As Integer
     Dim reader As Reader
     Dim fp As String
     Dim preenrollmentFmds As New List(Of Fmd)
 
+    'Metodo que genera las colecciones de huellas
     Public Property Fmds() As Dictionary(Of Int16, Fmd)
         Get
             Return _fmds
@@ -21,7 +23,7 @@ Module Module1
         End Set
     End Property
     Private _fmds As Dictionary(Of Int16, Fmd) = New Dictionary(Of Int16, Fmd)
-
+    'Metodo que reinicia el lector
     Public Property Reset() As Boolean
         Get
             Return _reset
@@ -31,18 +33,7 @@ Module Module1
         End Set
     End Property
     Private _reset As Boolean
-
-    'Public Property CurrentReader() As Reader
-    '    Get
-    '        Return _currentReader
-    '    End Get
-    '    Set(ByVal value As Reader)
-    '        _currentReader = value
-    '        'Console.WriteLine("Error:  " & Action.UpdateReaderState)
-    '    End Set
-    'End Propertybgu
-    'Private _currentReader As Reader
-
+    'Metodo que abre un conexión con el lector
     Public Function OpenReader() As Boolean
         Reset = False
         Dim result As Constants.ResultCode = Constants.ResultCode.DP_DEVICE_FAILURE
@@ -57,7 +48,7 @@ Module Module1
 
         Return True
     End Function
-
+    'Metodo que obtiene el estatus de determinado lector de huella
     Public Sub GetStatus()
         Dim result = reader.GetStatus()
 
@@ -76,7 +67,7 @@ Module Module1
             Throw New Exception("Reader Status - " & reader.Status.Status.ToString())
         End If
     End Sub
-
+    'Metodo que captura la huella asincronamente
     Public Function CaptureFingerAsync() As Boolean
         Try
             GetStatus()
@@ -86,7 +77,7 @@ Module Module1
                                                     reader.Capabilities.Resolutions(0))
 
             If captureResult <> ResultCode.DP_SUCCESS Then
-                reset = True
+                Reset = True
                 Throw New Exception("" + captureResult.ToString())
             End If
 
@@ -96,7 +87,7 @@ Module Module1
             Return False
         End Try
     End Function
-
+    'Funcion que inicia la captura de huella de manera asincrona
     Public Function StartCaptureAsync(ByVal OnCaptured As Reader.CaptureCallback) As Boolean
         AddHandler reader.On_Captured, OnCaptured
 
@@ -106,88 +97,50 @@ Module Module1
 
         Return True
     End Function
-
+    'Metodo que cancela la captura de huella
     Public Sub CancelCaptureAndCloseReader(ByVal OnCaptured As Reader.CaptureCallback)
         If reader IsNot Nothing Then
-            ' Dispose of reader handle and unhook reader events.
-
-
             If (Reset) Then
                 reader = Nothing
             End If
         End If
     End Sub
-
+    'Metodo principal
     Sub Main()
+        'Obtengo la coleccion de lectores conectadosa
         _readers = ReaderCollection.GetReaders
         Dim serial_reader As String
+        'Elijo el primer lector, asumiendo que solo existe uno conectado
         serial_reader = _readers(0).Description.SerialNumber
         reader = _readers(0)
         count = 0
+        'Abro el lector elegido
         OpenReader()
-        'While (count < 4)
+        'Inicio la captura asincrona
         StartCaptureAsync(AddressOf OnCaptured)
-        'Console.WriteLine("")
-        'Console.ReadLine()
-        'End While
-       
         Console.WriteLine("")
         Console.ReadLine()
     End Sub
-
+    'Metodo que se ejecuta al detectar una captura.
     Public Sub OnCaptured(ByVal captureResult As CaptureResult)
-        'Try
-        ' Check capture quality and throw an error if bad.
-
+        'Contador para llevar el control de las capturas de las 4 muestras de huella
         count += 1
-
+        'Convierto la huella cpaturada a un objeto para extraer sus propiedades.
         Dim resultConversion As DataResult(Of Fmd) = FeatureExtraction.CreateFmdFromFid(captureResult.Data, Formats.Fmd.DP_PRE_REGISTRATION)
+        'Si la huella se capturo correctamente, la agrego a la coleccion de huellas, si no, la descarto
         If resultConversion.ResultCode <> Constants.ResultCode.DP_SUCCESS Then
             Console.WriteLine("no funciona")
-            'Console.ReadLine()
         Else
-            'fp = Fmd.SerializeXml(resultConversion.Data)
             preenrollmentFmds.Add(resultConversion.Data)
             Console.WriteLine("OK " + count.ToString)
-            'Dim path As String = "c:\temp\cap.txt"
-            'File.WriteAllText(path, fp)
-            'Console.ReadLine()
-
         End If
-
-        ' Environment.Exit(0)
-
-
-        '    preenrollmentFmds.Add(resultConversion.Data)
-
-        '    SendMessage(Action.SendMessage, "A finger was captured.  " & vbCrLf & "Count:  " & (count.ToString()))
-
+        'Al recolectar las 4 huellas, en base a la coleccion, genero la huella muestra, la serializo y la escribo en un archivo de texto en la ruta indicada
         If count >= 4 Then
             Dim resultEnrollment As DataResult(Of Fmd) = DPUruNet.Enrollment.CreateEnrollmentFmd(Formats.Fmd.DP_REGISTRATION, preenrollmentFmds)
             fp = Fmd.SerializeXml(resultEnrollment.Data)
             File.WriteAllText("c:\temp\cap_fmd_enrolled.txt", fp)
             Console.WriteLine("Done")
-            '        Dim resultEnrollment As DataResult(Of Fmd) = DPUruNet.Enrollment.CreateEnrollmentFmd(Formats.Fmd.ANSI, preenrollmentFmds)
-
-            '        If resultEnrollment.ResultCode = ResultCode.DP_SUCCESS Then
-            '            SendMessage(Action.SendMessage, "An enrollment FMD was successfully created.")
-            '            SendMessage(Action.SendMessage, "Place a finger on the reader.")
-            '            count = 0
-            '            preenrollmentFmds.Clear()
-            '            Return
-            '        ElseIf (resultEnrollment.ResultCode = Constants.ResultCode.DP_ENROLLMENT_INVALID_SET) Then
-            '            SendMessage(Action.SendMessage, "Enrollment was unsuccessful.  Please try again.")
-            '            SendMessage(Action.SendMessage, "Place a finger on the reader.")
-            '            count = 0
-            '            preenrollmentFmds.Clear()
-            '            Return
-            '        End If
         End If
-
-        '    SendMessage(Action.SendMessage, "Now place the same finger on the reader.")
-        'Catch ex As Exception
-        '    SendMessage(Action.SendMessage, "Error:  " & ex.Message)
-        'End Try
     End Sub
 
 End Module
