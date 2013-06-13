@@ -5,12 +5,14 @@ Imports System.Collections.Generic
 Imports DPUruNet.Constants
 Imports System.IO
 Module Module1
+
+    'Declaro variables globales
     Private _readers As ReaderCollection
     Private count As Integer
     Dim reader As Reader
     Dim fp As String
     Dim Fmds_ver As New List(Of Fmd)
-    'Dim sarray() As String
+
 
     Public Property Fmds() As Dictionary(Of Int16, Fmd)
         Get
@@ -74,7 +76,7 @@ Module Module1
                                                    CaptureProcessing.DP_IMG_PROC_DEFAULT, 500)
 
             If captureResult <> ResultCode.DP_SUCCESS Then
-                reset = True
+                Reset = True
                 Throw New Exception("" + captureResult.ToString())
             End If
 
@@ -106,12 +108,13 @@ Module Module1
     End Sub
 
     Sub Main()
+        'Obtengo la coleccion de lectores de huella conectados al equipo, asumo que solo hay uno conectado y lo elijo.
         _readers = ReaderCollection.GetReaders
         Dim serial_reader As String
         serial_reader = _readers(0).Description.SerialNumber
         reader = _readers(0)
         count = 0
-        'sarray = System.Environment.GetCommandLineArgs()
+        'Abro el lector elejido e inicio el proceso de captura asincrona
         OpenReader()
         StartCaptureAsync(AddressOf OnCaptured)
         Console.WriteLine("")
@@ -119,20 +122,6 @@ Module Module1
     End Sub
 
     Private Sub OnCaptured(ByVal captureResult As CaptureResult)
-        'If (captureResult.Quality = CaptureQuality.DP_QUALITY_CANCELED) Then
-        '    Return
-        'End If
-
-        'If (captureResult.Quality = CaptureQuality.DP_QUALITY_NO_FINGER _
-        '    Or captureResult.Quality = CaptureQuality.DP_QUALITY_TIMED_OUT) Then
-        '    'MessageBox.Show("Capture timed out.")
-        '    Return
-        'End If
-
-        'If (captureResult.Quality = CaptureQuality.DP_QUALITY_FAKE_FINGER) Then
-        '    'MessageBox.Show("Possible fake finger was detected.  Try again.")
-        '    Return
-        'End If
 
         Dim resultConversion As DataResult(Of Fmd) = FeatureExtraction.CreateFmdFromFid(captureResult.Data, Formats.Fmd.DP_VERIFICATION)
 
@@ -145,7 +134,7 @@ Module Module1
         'For Each fp_a As String In sarray
         compareResult = Comparison.Compare(resultConversion.Data, 0, Fmd.DeserializeXml(File.ReadAllText("c:\temp\cap_fmd_enrolled.txt")), 0)
         Console.WriteLine(IIf(compareResult.Score < (&H7FFFFFFF / 100000), "Usuario Valido", "Usuario Invalido"))
-        
+
 
 
         'If compareResult.ResultCode <> Constants.ResultCode.DP_SUCCESS Then

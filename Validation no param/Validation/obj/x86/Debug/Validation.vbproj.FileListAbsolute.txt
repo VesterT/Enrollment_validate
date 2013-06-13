@@ -19,3 +19,6 @@ D:\Validation no param\Validation\bin\Debug\Validation.xml
 D:\Validation no param\Validation\obj\x86\Debug\Validation.vbprojResolveAssemblyReference.cache
 D:\Validation no param\Validation\obj\x86\Debug\Validation.Resources.resources
 D:\Validation no param\Validation\obj\x86\Debug\Validation.vbproj.GenerateResource.Cache
+C:\Users\Administrator\Documents\GitHub\Enrollment_validate\Validation no param\Validation\obj\x86\Debug\Validation.exe
+C:\Users\Administrator\Documents\GitHub\Enrollment_validate\Validation no param\Validation\obj\x86\Debug\Validation.xml
+C:\Users\Administrator\Documents\GitHub\Enrollment_validate\Validation no param\Validation\obj\x86\Debug\Validation.pdb
